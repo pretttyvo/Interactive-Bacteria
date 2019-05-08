@@ -34,6 +34,7 @@ async function buildCharts(sample) {
   let data = await d3.json(url);
   console.log(data);
   // Build a Bubble Chart using the sample data
+
   // create trace with the ids and values
   const maxVal = data.sample_values.slice(0,1)
   const trace1 = {
@@ -62,21 +63,27 @@ async function buildCharts(sample) {
   
   
   // Build a Pie Chart  
+  // d3.select(".legend").selectAll(".groups").html("")
+  
 
-  const pieData = [{
+  const trace2 = {
     values: data.sample_values.slice(0,10),
     labels: data.otu_ids.slice(0,10),
     hovertext: data.otu_labels.slice(0,10),
+    text: "",
     type: "pie"
-}];
+  };
 
-const layout2 = {
-    height: 600,
-    width: 800
-};
+  const pieData = [trace2]
 
-Plotly.plot("pie", pieData, layout2);
-}
+  const layout2 = {
+      height: 600,
+      width: 800
+  };
+
+  Plotly.newPlot("pie", pieData, layout2);
+
+  }
 
 function init() {
   // Grab a reference to the dropdown select element
